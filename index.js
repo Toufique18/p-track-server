@@ -51,30 +51,7 @@ async function run() {
   //     }
   // });
   
-  //for search
 
-//   app.get("/products", async (req, res) => {
-//     const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
-//     const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page if not provided
-//     const search = req.query.search || ''; // Get the search term from the query
-//     const skip = (page - 1) * limit;
-
-//     try {
-//         const query = search ? { productName: { $regex: search, $options: 'i' } } : {};
-//         const result = await productCollection.find(query).skip(skip).limit(limit).toArray();
-//         const totalProducts = await productCollection.countDocuments(query);
-//         const totalPages = Math.ceil(totalProducts / limit);
-
-//         res.send({
-//             data: result,
-//             totalPages: totalPages,
-//             currentPage: page,
-//         });
-//     } catch (error) {
-//         console.error('Error fetching products:', error);
-//         res.status(500).send({ error: 'Failed to fetch products' });
-//     }
-// });
 
 //combine search
 
