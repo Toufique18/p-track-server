@@ -115,7 +115,7 @@ async function run() {
 //combine search
 
 app.get("/products", async (req, res) => {
-  const { page = 1, limit = 10, search = '', brands = '', categories = '', priceRange = '' } = req.query;
+  const { page = 1, limit = 10, search = '', brands = '', categories = '', priceRange = '', sort = '' } = req.query;
 
   // Convert brands and categories into arrays
   const brandsArray = brands ? brands.split(',') : [];
@@ -123,29 +123,45 @@ app.get("/products", async (req, res) => {
 
   const query = {};
 
+  // Search filter
   if (search) {
       query.productName = { $regex: search, $options: 'i' };
   }
 
+  // Brand filter
   if (brandsArray.length > 0) {
       query.brandName = { $in: brandsArray };
   }
 
+  // Category filter
   if (categoriesArray.length > 0) {
       query.category = { $in: categoriesArray };
   }
 
+  // Price range filter
   if (priceRange) {
       const [minPrice, maxPrice] = priceRange.split('-').map(Number);
       query.price = { $gte: minPrice, $lte: maxPrice };
   }
-  //console.log('Constructed Query:', query); 
+
+  // Define sorting option
+  let sortOption = {};
+
+  if (sort === 'price-asc') {
+      sortOption.price = 1; // Sort by price ascending
+  } else if (sort === 'price-desc') {
+      sortOption.price = -1; // Sort by price descending
+  } else if (sort === 'date-desc') {
+      sortOption.dateAdded = -1; // Sort by date added (newest first)
+  }
+
   try {
       const totalItems = await productCollection.countDocuments(query);
       const totalPages = Math.ceil(totalItems / limit);
 
       const products = await productCollection
           .find(query)
+          .sort(sortOption) // Apply sorting
           .skip((page - 1) * limit)
           .limit(parseInt(limit))
           .toArray();
@@ -156,6 +172,7 @@ app.get("/products", async (req, res) => {
       res.status(500).send({ error: 'Failed to fetch products' });
   }
 });
+
 
   
     
