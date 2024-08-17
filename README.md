@@ -14,7 +14,7 @@ This repository contains the backend code for the product filtering and sorting 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/backend-repo.git
+   git clone https://github.com/Toufique18/p-track-server.git
 
 2. **Install dependencies:**
    npm install
