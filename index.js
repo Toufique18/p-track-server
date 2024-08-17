@@ -152,7 +152,7 @@ app.get("/products", async (req, res) => {
   } else if (sort === 'price-desc') {
       sortOption.price = -1; // Sort by price descending
   } else if (sort === 'date-desc') {
-      sortOption.dateAdded = -1; // Sort by date added (newest first)
+      sortOption.creationDateTime = -1; // Sort by date added (newest first)
   }
 
   try {
