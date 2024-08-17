@@ -8,6 +8,7 @@ This repository contains the backend code for the product filtering and sorting 
 - **Node.js** (version 14.x or higher)
 - **npm** (version 6.x or higher)
 - **MongoDB** (version 4.x or higher)
+- **Express.js
 
 ## Installation Instructions
 
